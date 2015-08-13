@@ -14,7 +14,7 @@ Only registered users can see/comment on images
 When an user comments, the image owner receives an email.
 
 ## Demo
-check the [demo app](http://designfeedback.com.br)
+check the [demo app](https://designfeedback.com.br)
 
 ## System Requirements
 
@@ -36,8 +36,7 @@ check the [demo app](http://designfeedback.com.br)
 1. Devise: for sign up & sign in
 2. kaminari: for pagination
 3. recaptcha: for contact form
-4. [Mandrill](http://mandrill.com) to send emails
-5. rmagick: for image manipulations like thumbnails and redimensions
+4. rmagick: for image manipulations like thumbnails and redimensions
 
 ## Configuration
 ### Google analytics
@@ -48,7 +47,7 @@ If you are going to use this on production, you can put your Google analytics st
 ### Recaptcha
 Default: disabled
 
-Recaptcha is a better version of the famous captcha (and those annoying numbers and letters). With recaptcha the user just 'click', yes, just 'click' and it works. Probably magic.
+Recaptcha is a better version of the famous captcha (and those annoying numbers and letters). With recaptcha the user just 'click', yes, just 'click' and it works. Probably magic. Recaptcha is used only in contact form
 
 ### Admin Panel
 **This admin panel is very basic**. To have access to the admin panel (localhost:3000/admin), you should create an admin user using the **rails console**.
