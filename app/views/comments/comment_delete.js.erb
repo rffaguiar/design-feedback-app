@@ -1,0 +1,5 @@
+(function() {
+  console.log('comment deleted successfully');
+  $spotForm = $('.comments-container', '.js-spots-container');
+  $spotForm.find('[data-comment-id=<%= @comment.id %>]').remove();
+}());

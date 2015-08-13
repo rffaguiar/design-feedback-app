@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @user.errors.any? %>
+      <% @user.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <%= form_for [:admin, @user] do |f| %>
+
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+
+      <div>
+        <%= f.label :password, 'Password * (Empty if you don`t want to modify)' %>
+        <%= f.password_field :password %>
+      </div>
+      <div>
+        <%= f.label :password_confirmation, 'Password Confirmation * (Empty if you don`t want to modify)' %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+
+      <div>
+        <%= f.label :address %>
+        <%= f.text_field :address %>
+      </div>
+
+      <div>
+        <%= f.submit 'Criar' %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

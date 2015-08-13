@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to 'Criar Usuário', new_admin_user_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <% if @users.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td class="df-admin-resource-actions">
+                <span class="df-admin-resource-show"><%= link_to admin_user_path(user.id) do '<i class="fa fa-eye"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-edit"><%= link_to edit_admin_user_path(user.id) do '<i class="fa fa-pencil"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-delete"><%= link_to admin_user_path(user.id), method: :delete, data: {confirm: 'Você tem certeza que deseja apagar esse usuário? Tudo associado a este usuário será apagado.'} do '<i class="fa fa-minus-circle"></i>'.html_safe end %></span>
+              </td>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @users %>
+
+    <% else %>
+      <p>Sem Usuários ainda</p>
+    <% end %>
+
+  </div>
+</div>

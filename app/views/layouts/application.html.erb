@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Design Feedback" %></title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "ga" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+    <%= render 'shared/home_nav' %>
+
+    <%= render 'shared/notifications' %>
+
+    <%= yield %>
+
+    <%= render 'shared/home_footer' %>
+
+    <% if Rails.env.development? %>
+
+      <%= render 'shared/debug_stuff' %>
+
+    <% end %>
+
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<div id="feedback-form-app" >
+  <%= form_tag( feedback_app_path, method: 'GET', remote: true, authenticity_token: true, class: 'js-form-feedback-form' ) do %>
+    <div>
+
+      <%= label_tag :feedback_text do %>
+        <%= text_area_tag :feedback_text, '', {required: true, id: 'feedback_user_text', class: 'feedback_user', placeholder: 'Sua Mensagem'} %>
+      <% end %>
+
+      <%= submit_tag 'Enviar', class: 'button', data: { disable_with: 'Enviando...' } %>
+      <span class="js-single-feedback-refresh hide"><i class="fa fa-refresh fa-spin"></i></span>
+      <p id="feedback-post-email-message" class="hide">Email enviado com sucesso.</p>
+    </div>
+  <% end %>
+</div>

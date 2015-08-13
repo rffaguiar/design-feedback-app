@@ -1,0 +1,61 @@
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to 'Edit Image', edit_admin_design_path(@image.id) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td><%= @image.id %></td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td><%= @image.title %></td>
+        </tr>
+        <tr>
+          <td>Subtitle</td>
+          <td><%= @image.subtitle %></td>
+        </tr>
+        <tr>
+          <td>Link</td>
+          <td><%= @image.link %></td>
+        </tr>
+        <tr>
+          <td>Image Path</td>
+          <td><%= @image.image_path %></td>
+        </tr>
+        <tr>
+          <td>Image Thumbnail Path</td>
+          <td><%= @image.image_thumb_path %></td>
+        </tr>
+        <tr>
+          <td>Belongs to - Name</td>
+          <td><%= @image.user.name %></td>
+        </tr>
+        <tr>
+          <td>Belongs to - ID</td>
+          <td><%= @image.user.id %></td>
+        </tr>
+        <tr>
+          <td>Created at</td>
+          <td><%= @image.created_at %></td>
+        </tr>
+        <tr>
+          <td>Updated at</td>
+          <td><%= @image.updated_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

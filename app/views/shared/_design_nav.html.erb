@@ -1,0 +1,30 @@
+<header class="max-width df-design-main-header">
+  <div class="row">
+    <!-- Top Nav BEGIN -->
+    <div class="small-12 medium-4 columns">
+      <%= link_to root_url do %>
+        <h1 class="df-main-logo"><span>Design</span><strong>Feedback</strong></h1>
+      <% end  %>
+    </div>
+    <nav class="small-12 medium-8 columns df-design-top-navigation">
+      <ul class="right">
+        <% if user_signed_in? && current_user.id == @design.user.id %>
+          <li><%= link_to 'Painel', individuais_path, {class: 'normal'} %></li>
+          <li class="hide"><%= link_to 'Dados Pessoais', edit_user_registration_path, {class: 'normal'} %></li>
+          <li class="hide"><%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'normal' %></li>
+          <li class="share" data-reveal-id="js-df-modal-link">Compartilhar Link</li>
+        <% elsif user_signed_in? %>
+          <li><%= link_to 'Painel', individuais_path, {class: 'featured'} %></li>
+          <li><%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'normal' %></li>
+        <% else %>
+          <li><%= link_to 'Login', new_user_session_path, {class: 'normal'} %></li>
+          <li><%= link_to 'Cadastre-se Gratuitamente', new_user_registration_path, {class: 'featured'} %></li>
+        <% end %>
+      </ul>
+    </nav>
+    <div class="small-12 columns">
+      <hr class="df-nav-separator">
+    </div>
+    <!-- Top Nav END -->
+  </div>
+</header>

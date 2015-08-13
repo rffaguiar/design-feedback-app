@@ -1,0 +1,107 @@
+
+<section id="js-edit-user-page">
+
+  <div class="row">
+    <div class="small-12 medium-5 end medium-centered columns df-form-container df-form-signup-container">
+
+      <header class="row text-center">
+        <div class="small-12 columns">
+          <h2 class="lead">Dados Pessoais</h2>
+        </div>
+      </header>
+
+      <main class="row">
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'data-abide': true,  method: :put}) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-user" style="font-size: 17px;"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :name do %>
+                  <%= f.text_field :name, autofocus: true, placeholder: 'Seu Nome', required: true %>
+                  <small class="error">O seu Nome é necessário</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :email do %>
+                  <%= f.email_field :email, placeholder: 'exemplo@email.com', required: true %>
+                  <small class="error">O seu Email é necessário</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :password do %>
+                  <% if @validatable %>
+                  <em class="hide">(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                  <%= f.password_field :password, autocomplete: "off", placeholder: 'Sua Nova Senha'%>
+                  <small class="error hide">A sua Senha é necessária</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :password_confirmation do %>
+                  <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirme sua Nova Senha', 'data-equalto': 'user_password' %>
+                  <small class="error hide">A Confirmação da Senha deve ser igual a Senha</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :current_password do %>
+                  <% if @validatable %>
+                  <em class="hide">(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                  <%= f.password_field :current_password, autocomplete: "off", placeholder: 'Sua Senha Atual', required: true %>
+                  <small class="error">A sua Senha Atual é necessária para confirmar as mudanças</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions small-12 columns">
+            <%= f.submit "Atualizar" %>
+          </div>
+
+        <% end %>
+
+      </main>
+
+      <%= link_to 'Voltar', :back, class: 'df-form-login-bt df-form-footer-link' %>
+
+    </div><!-- .df-form-signup-container -->
+
+  </div><!-- row -->
+</section><!-- #js-signup-page -->

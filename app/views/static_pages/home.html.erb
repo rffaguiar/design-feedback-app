@@ -1,0 +1,125 @@
+<section id="js-home-page" class="df-home-demonstration max-width">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2 class="df-home-lead-title text-center">Clique no ponto vermelho e deixe seu feedback</h2>
+
+      <div class="temp-home-placeholder js-design-container js-main-app">
+
+        <div class="row">
+          <div class="small-12 columns">
+            <%= image_tag 'home-img-preview.jpg', id: 'js-design-img' %>
+            <div class="js-spots-container">
+
+              <div class="spot-comment-container">
+                <span data-spot-id="1" class="js-design-spot" style="top: 80px; left: 150px; opacity: 1;"></span>
+                <div data-spot-ref="1" class="js-spot-form" style="top: 90px; left: 160px;">
+                  <form class="js-home-fake-form">
+                    <div class="comments-container">
+                      <p class="design-comment">
+                        Voce não acha que este fundo está branco demais?
+                        <span class="home-bot-user">- Seu Serviçal</span>
+                      </p>
+                    </div>
+                    <textarea class="design-comment-text js-maintain-focus"></textarea>
+                    <button type="button" class="js-bot-comment-submit design-comment-submit" class="design-comment-submit">Enviar Feedback</button>
+                  </form>
+                </div>
+              </div><!-- end .spot-comment-container -->
+
+
+            </div><!-- end .js-spots-container -->
+
+          </div>
+        </div>
+
+        <div class="js-new-spot-comment-container">
+          <span class="js-design-spot js-new-design-spot hide"></span>
+          <div class="js-add-new-spot js-spot-form">
+            <form class="js-home-fake-form">
+              <p class="design-new-feedback-title">Deixe seu Feedback</p>
+              <div class="comments-container"></div>
+              <textarea class="design-comment-text js-maintain-focus"></textarea>
+              <button type="button" class="js-home-new-spot-submit design-comment-submit" class="design-comment-submit">Enviar Feedback</button>
+            </form>
+          </div>
+        </div>
+
+
+      </div><!-- end .temp-home-placeholder .js-design-container .js-main-app -->
+
+      <h3 class="df-home-lead-subtitle text-center">Feedback feito de maneira simples</h3>
+    </div>
+  </div>
+
+
+</section><!-- Home Demonstration - END -->
+
+<section class="df-howitworks-section max-width">
+
+  <div class="row">
+    <div class="small-12 columns">
+      <h3 class="text-center df-home-howitworks-lead">Como Funciona?</h3>
+      <!-- <hr> -->
+    </div>
+  </div>
+
+  <section class="max-width df-subsection-step df-step-upload">
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <h4 class="lead-a">Faça o upload da sua Imagem</h4>
+        <div class="description-a description">
+          <p>Selecione a imagem para a qual você gostaria de receber feedback.</p>
+          <p>Os formatos aceitos são <span class="pinkred">.png</span> e <span class="pinkred">.jpg</span></p>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns text-center">
+        <%= image_tag 'df-upload.png', {class: 'js-upload-home s-hidden'} %>
+      </div>
+    </div>
+  </section><!-- Faça Upload - END -->
+
+  <section class="max-width df-subsection-step df-step-share">
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <h4 class="lead-b">Compartilhe o Link</h4>
+        <div class="description-b description">
+          <p>Um link é gerado para que você possa compartilhá-lo com todas as pessoas envolvidas:</p>
+          <p class="strong"> - sua Equipe e/ou Clientes</p>
+          <p class="pinkred">Não há limite de participantes!</p>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns text-center">
+        <%= image_tag 'df-share.png', {class: 'js-share-home s-hidden'} %>
+      </div>
+    </div>
+  </section><!-- Compartilhe o Link - END -->
+
+  <section class="max-width df-subsection-step df-step-feedback">
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <h4 class="lead-a">Receba o Feedback</h4>
+        <div class="description-a description">
+          <p>Todos os envolvidos podem deixar feedback do seu trabalho através do seu link.</p>
+          <p>Você é notificado por email toda vez que alguém comentar.</p>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns text-center">
+        <%= image_tag 'df-feedback.png', {class: 'js-feedback-home s-hidden'} %>
+      </div>
+    </div>
+  </section><!-- Receba o Feedback - END -->
+
+</section><!-- How It Works - END -->
+
+<section class="df-free-register-section max-width">
+  <div class="row">
+    <div class="small-12 columns text-center">
+      <% if user_signed_in? %>
+        <%= link_to 'Ir para o seu Painel', individuais_path, {class: 'df-home-register-bt df-register-bt'} %>
+      <% else %>
+        <%= link_to 'Crie sua Conta Gratuitamente', new_user_registration_path, {class: 'df-home-register-bt df-register-bt'} %>
+      <% end %>
+
+    </div>
+  </div>
+</section>

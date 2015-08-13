@@ -1,0 +1,53 @@
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to 'Edit User', edit_admin_user_path(@user.id) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>Address (user cant see it yet)</td>
+          <td><%= @user.address %></td>
+        </tr>
+        <tr>
+          <td>Login Count</td>
+          <td><%= @user.sign_in_count %></td>
+        </tr>
+        <tr>
+          <td>Created at</td>
+          <td><%= @user.created_at %></td>
+        </tr>
+        <tr>
+          <td>Updated at</td>
+          <td><%= @user.updated_at %></td>
+        </tr>
+        <tr>
+          <td>Last Sign in at</td>
+          <td><%= @user.last_sign_in_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

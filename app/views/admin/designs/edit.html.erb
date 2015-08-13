@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @image.errors.any? %>
+      <% @image.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <%= form_for [:admin, @image] do |f| %>
+
+      <div>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div>
+        <%= f.label :subtitle %>
+        <%= f.text_field :subtitle %>
+      </div>
+
+      <div>
+        <%= f.label :link %>
+        <%= f.text_field :link %>
+      </div>
+
+      <div>
+        <%= f.label :image_path %>
+        <%= f.text_field :image_path %>
+      </div>
+
+      <div>
+        <%= f.label :image_thumb_path %>
+        <%= f.text_field :image_thumb_path %>
+      </div>
+
+      <div>
+        <%= f.submit 'Atualizar', class: 'bt' %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

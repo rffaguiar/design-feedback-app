@@ -1,0 +1,40 @@
+<section id="js-password-page">
+  <div class="row">
+    <div class="small-12 medium-5 end medium-centered columns df-form-container df-form-password-container">
+
+      <header class="row text-center">
+        <div class="small-12 columns">
+          <h2 class="lead">Esqueci minha Senha</h2>
+        </div>
+      </header>
+
+      <main class="row">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, 'data-abide': true }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :email do %>
+                  <%= f.email_field :email, autofocus: true, placeholder: 'meu_email@email.com', required: true %>
+                  <small class="error">O Email é necessário.</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions small-12 columns">
+            <%= f.submit "Envie-me Instruções" %>
+          </div>
+
+        <% end %>
+      </main>
+
+      <%= render "users/shared/links" %>
+
+    </div>
+  </div>
+</section>

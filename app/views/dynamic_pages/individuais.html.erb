@@ -1,0 +1,120 @@
+<div id="js-individuais-page" class="max-width">
+
+    <div class="row">
+
+      <!-- Sections BEGIN -->
+      <section class="small-12 columns">
+        <nav class="painel-secoes-nav">
+          <ul>
+            <li><%= link_to 'Minhas Imagens', individuais_path, class: 'painel-secao-link selected' %></li>
+            <li><%= link_to 'Onde Comentei', my_comments_path, class: 'painel-secao-link' %></li>
+          </ul>
+        </nav>
+      </section><!-- Sections END -->
+
+      <div class="small-12 columns">
+        <div class="dropzone-previews row design-container-individuais">
+
+          <div id="js-dropzone-position" class="small-10 large-3 medium-4 columns painel-design-container">
+            <div id="js-singular-dropzone" class="text-center"></div>
+          </div>
+
+          <% if @singles.any? %>
+
+            <% @singles.each do |single| %>
+
+              <div class="small-10 large-3 medium-4 columns painel-design-container">
+                <div class="row">
+                  <div class="small-12 columns painel-design-inner-container">
+                    <a class='painel-design-link' href="<%= design_path single.link %>" alt="Design Individual">
+                      <%= image_tag design_fs_path + single.image_thumb_path %>
+                    </a>
+
+                    <div class="row df-individual-inputs-container">
+                      <div class="small-12 columns">
+                        <%= form_tag(update_design_title_path, method: 'PATCH', remote: true, class: 'js-form-update-title' ) do %>
+                          <%= text_field_tag :design_id, single.id, {type: 'hidden'} %>
+                          <div class="df-input-stacked">
+                            <%= text_field_tag :design_title, single.title, {class: 'new_design_title_individuais', placeholder: 'Título' } %>
+                            <i class="fa js-form-update-icon"></i>
+                          </div>
+                        <% end %>
+                        <%= form_tag(update_design_subtitle_path, method: 'PATCH', remote: true, class: 'js-form-update-subtitle' ) do %>
+                          <%= text_field_tag :design_id, single.id, {type: 'hidden'} %>
+                          <div class="df-input-stacked">
+                            <%= text_field_tag :design_subtitle, single.subtitle, {class: 'new_design_subtitle_individuais', placeholder: 'Breve Descrição'} %>
+                            <i class="fa js-form-update-icon"></i>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            <% end %>
+
+            <div class="small-12 columns">
+              <%= paginate @singles %>
+            </div>
+
+          <% else %>
+
+            <p class="hide">Faça o upload da sua primeira Imagem e comece a receber feedback</p>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="js-mydropzone-singular-theme" class="hide">
+      <div class="dz-preview dz-file-preview small-10 large-3 medium-4 columns painel-design-container">
+         <div class="row">
+           <div class="small-12 columns painel-design-inner-container">
+
+             <div class="dz-details">
+               <div class="dz-filename hide"><span data-dz-name></span></div>
+               <div class="dz-size hide" data-dz-size></div>
+               <a class='painel-design-link' href="" data-design-link alt="Design Individual">
+                 <img data-dz-thumbnail />
+               </a>
+               <div class="dz-progress">
+                 <span class="dz-upload" data-dz-uploadprogress></span>
+               </div>
+             </div>
+
+             <div class="row df-individual-inputs-container">
+               <div class="small-12 columns">
+
+                 <%= form_tag(update_design_title_path, method: 'PATCH', remote: true, class: 'js-form-update-title' ) do %>
+                   <%= text_field_tag :design_id, nil, {type: 'hidden', 'data-design-id': true } %>
+                   <div class="df-input-stacked">
+                     <%= text_field_tag :design_title, nil, {class: 'new_design_title_individuais', placeholder: 'Título' } %>
+                     <i class="fa js-form-update-icon"></i>
+                   </div>
+                 <% end %>
+
+                 <%= form_tag(update_design_subtitle_path, method: 'PATCH', remote: true, class: 'js-form-update-subtitle' ) do %>
+                   <%= text_field_tag :design_id, nil, {type: 'hidden', 'data-design-id': true} %>
+                   <div class="df-input-stacked">
+                     <%= text_field_tag :design_subtitle, nil, {class: 'new_design_subtitle_individuais', placeholder: 'Breve Descrição'} %>
+                     <i class="fa js-form-update-icon"></i>
+                   </div>
+                 <% end %>
+
+                 <div class="dz-error-message"><span data-dz-errormessage></span></div>
+               </div>
+             </div>
+
+           </div>
+         </div>
+
+         <div class="dz-success-mark hide"><span>✔</span></div>
+         <div class="dz-error-mark hide"><span>✘</span></div>
+
+      </div>
+    </div>
+
+</div>

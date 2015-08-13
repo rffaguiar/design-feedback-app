@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% # link_to 'Criar Usuário', new_admin_user_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <% if @comments.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>ID</th>
+            <th>Comment</th>
+            <th>belongs to - Name</th>
+            <th>belongs to - ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td class="df-admin-resource-actions">
+                <span class="df-admin-resource-show"><%= link_to admin_comment_path(comment.id) do '<i class="fa fa-eye"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-edit"><%= link_to edit_admin_comment_path(comment.id) do '<i class="fa fa-pencil"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-delete"><%= link_to admin_comment_path(comment.id), method: :delete, data: {confirm: 'Você tem certeza que deseja apagar esse comentário? Tudo associado a este comentário será apagado.'} do '<i class="fa fa-minus-circle"></i>'.html_safe end %></span>
+              </td>
+              <td><%= comment.id %></td>
+              <td><%= comment.comment %></td>
+              <td><%= comment.user.name %></td>
+              <td class="text-center"><%= comment.user.id %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @comments %>
+
+    <% else %>
+      <p>Sem Comentários ainda</p>
+    <% end %>
+
+  </div>
+</div>

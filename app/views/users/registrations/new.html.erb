@@ -1,0 +1,156 @@
+<section id="js-signup-page">
+
+  <% if session['design_id_before_register'] %>
+    <div class="row">
+      <div class="small-12 medium-6 end medium-centered columns text-center df-form-signup-container-notice">
+        <p class="text">Olá! <span class="author"><%= session['design_username_before_register'] %></span> lhe enviou este link.</p>
+        <p class="text">Para ter acesso a esta imagem você precisa se cadastrar ou entrar com seu login.</p>
+        <p class="redirect">Logo depois você será direcionado para a imagem.</p>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 medium-8 end medium-centered columns df-form-container df-form-signup-container">
+
+      <main class="row">
+        <div class="small-12 medium-6 columns"><!-- SIGN_UP BEGIN -->
+          <header class="row text-center">
+            <div class="small-12 columns">
+              <h2 class="lead">Cadastre-se</h2>
+            </div>
+          </header>
+          <div class="row df-form-left-container">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'data-abide': true}) do |f| %>
+              <%= devise_error_messages! %>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-user" style="font-size: 17px;"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :name do %>
+                      <%= f.text_field :name, placeholder: 'Seu Nome', required: true, id: 'new_user_name', class: 'new_user_name' %>
+                      <small class="error">O seu Nome é necessário</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :email do %>
+                      <%= f.email_field :email, placeholder: 'exemplo@email.com', required: true, id: 'new_user_email', class: 'new_user_email' %>
+                      <small class="error">O seu Email é necessário</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :password do %>
+                      <% if @validatable %>
+                      <em class="hide">(<%= @minimum_password_length %> characters minimum)</em>
+                      <% end %>
+                      <%= f.password_field :password, autocomplete: "off", placeholder: 'Sua Senha', required: true, id: 'new_user_pass', class: 'new_user_pass' %>
+                      <small class="error">A sua Senha é necessária</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :password_confirmation do %>
+                      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirme sua Senha', required: true, 'data-equalto': 'new_user_pass', id: 'new_user_pass_confirm', class: 'new_user_pass_confirm' %>
+                      <small class="error">A Confirmação da Senha deve ser igual a Senha</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="actions small-12 columns">
+                <%= f.submit "Cadastre-se" %>
+              </div>
+
+            <% end %>
+          </div>
+        </div><!-- SIGN_UP END -->
+
+        <!-- BEGIN SIGN_IN -->
+        <div class="small-12 medium-6 columns">
+          <header class="row text-center">
+            <div class="small-12 columns">
+              <h2 class="lead">Entrar</h2>
+            </div>
+          </header>
+          <div class="row">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {'data-abide': true, class: 'login_user', id: 'login_user'}) do |f| %>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :email do %>
+                      <%= f.email_field :email, placeholder: 'exemplo@email.com', required: true, id: 'exist_user_email', class: 'exist_user_email' %>
+                      <small class="error">O seu Email é necessário</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-12 columns">
+                <div class="row collapse">
+                  <div class="small-2 columns">
+                    <span class="prefix"><i class="df-form-icon fa fa-key"></i></span>
+                  </div>
+                  <div class="small-10 columns">
+                    <%= f.label :password do %>
+                      <% if @validatable %>
+                      <em class="hide">(<%= @minimum_password_length %> characters minimum)</em>
+                      <% end %>
+                      <%= f.password_field :password, autocomplete: "off", placeholder: 'Sua Senha', required: true, id: 'exist_user_pass', class: 'exist_user_pass' %>
+                      <small class="error">A sua Senha é necessária</small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-12 columns">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me, 'Manter-me Conectado' %>
+              </div>
+
+              <div class="actions small-12 columns">
+                <%= f.submit "Entrar" %>
+              </div>
+
+            <% end %>
+          </div>
+        </div>
+        <!-- END SIGN_IN -->
+
+      </main>
+
+      <% # render "users/shared/links" %>
+
+    </div><!-- .df-form-signup-container -->
+
+  </div><!-- row -->
+</section><!-- #js-signup-page -->

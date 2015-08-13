@@ -1,0 +1,96 @@
+(function() {
+  // hide the new spot/comment form
+  $('.js-add-new-spot').addClass('js-spot-created'); // hackish solution
+
+  // this is to remove the :hover effect
+  setTimeout(function(){
+    $('.js-add-new-spot').removeClass('js-spot-created');
+  }, 1000);
+
+  function color_user(user_id) {
+    var unique_ids = []; // name says it all
+    var colors = []; // array containing colors, one color - one id
+    var user_color = "red";
+    user_id = user_id.toString();
+
+    // get all distinct ids
+    $('.js-spots-container').find('.js-username-comment').each(function(i, el) {
+      if ($.inArray($(el).attr('data-user-ref'), unique_ids) === -1) {
+        unique_ids.push($(el).attr('data-user-ref'));
+      }
+    });
+
+    // check if this user have a comment on page
+    if ($.inArray(user_id, unique_ids) === -1) {
+      console.log('new user commenting');
+      // new user commenting, so create a new color
+      user_color = Please.make_color({
+        colors_returned: 1,
+        saturation: .7,
+        value: .7
+      });
+    } else {
+      console.log('existing user commenting');
+      // an already existing user, so get his color
+      user_color = $('.js-spots-container').find('.js-username-comment[data-user-ref='+ user_id +']').first().css('color');
+    }
+
+    return user_color;
+  }
+
+  user_color = color_user(<%= @comment.user.id.to_s %>);
+
+  var $designContainer = $('.js-design-container');
+  var $spotFormContainer = $('<div class="spot-comment-container"></div>')
+
+  var $span = $('<span>')
+              .attr('data-spot-id',"<%= @spot.id %>")
+              .addClass('js-design-spot')
+              .attr('style', "top: <%= @spot.y_pos.to_i - 10 %>px; left: <%= @spot.x_pos.to_i - 10 %>px");
+
+  $span.appendTo($spotFormContainer);
+
+  var $formContainer = $('<div>')
+                      .attr('data-spot-ref',"<%= @spot.id %>")
+                      .addClass('js-existing-spot-form js-spot-form')
+                      .attr('style', "top: <%= @spot.y_pos %>px; left: <%= @spot.x_pos %>px");
+
+  <%
+    delete_link = ''
+    if @comment.can_user_delete?(current_user)
+      delete_link = link_to delete_design_spot_path(@spot.id), remote: true, method: :delete, class: 'design-comment-delete', data: {confirm: 'Atenção: todos os comentários pertencentes a este feedback serão apagados. Tem certeza?'} do raw '<i class="fa fa-trash"></i>' end
+    end
+  %>
+
+  var $commentsContainer = $('<div>')
+                           .addClass('comments-container')
+                           .append("<p class=\"design-comment\" data-comment-id=\"<%= @comment.id =%>\" ><%= @comment.comment %><span data-user-ref=\"<%= @comment.user.id %>\" class=\"js-username-comment\" style=\"color: "+ user_color +";\">-<%= @comment.user.name %></span><%= j(delete_link) %></p>");
+
+  var $form = $('<form>')
+              .attr('action', "<%= j(create_design_comment_path) %>")
+              .attr('accept-charset', 'UTF-8')
+              .attr('data-remote', 'true')
+              .attr('method', 'post')
+              .append('<input name="utf8" type="hidden" value="✓">')
+              .append($commentsContainer)
+              .append('<input type="hidden" name="design-id" id="design-id" value="<%= @spot.design.id %>">')
+              .append('<input type="hidden" name="spot-id" id="spot-id" value="<%= @spot.id %>">')
+              .append('<textarea name="design-comment-text" id="design-comment-text" class="js-maintain-focus js-design-comment-text"></textarea>')
+              .append('<button name="button" type="submit" class="design-comment-submit" data-disable-with="Enviando...">Enviar Feedback</button>');
+
+  $form.appendTo($formContainer);
+  $formContainer.appendTo($spotFormContainer);
+  $spotFormContainer.appendTo('.js-spots-container');
+
+  //find the new spot and show it
+  $("[data-spot-id=<%= @spot.id %>]").addClass('js-temp-display');
+
+  // hackish solution
+  setTimeout(function() {
+    $("[data-spot-id=<%= @spot.id %>]").removeClass('js-temp-display');
+  }, 1000)
+
+  // create focus on the newly created spot comment
+  $("[data-spot-ref=<%= @spot.id %>]").find('.js-maintain-focus').trigger('focus');
+
+}());

@@ -1,0 +1,51 @@
+<div id="js-my-comments-page" class="max-width">
+
+    <div class="row">
+
+      <!-- Sections BEGIN -->
+      <section class="small-12 columns">
+        <nav class="painel-secoes-nav">
+          <ul>
+            <li><%= link_to 'Minhas Imagens', individuais_path, class: 'painel-secao-link' %></li>
+            <li><%= link_to 'Onde Comentei', my_comments_path, class: 'painel-secao-link selected' %></li>
+          </ul>
+        </nav>
+      </section><!-- Sections END -->
+
+      <div class="small-12 columns">
+        <div class="row design-container-individuais">
+
+          <% if @singles.any? %>
+
+            <% @singles.each do |single| %>
+
+              <div class="small-10 large-3 medium-4 columns painel-design-container">
+                <div class="row">
+                  <div class="small-12 columns painel-design-inner-container">
+                    <a class='painel-design-link' href="<%= design_path single.link %>" alt="Design Individual">
+                      <%= image_tag design_fs_path + single.image_thumb_path %>
+                    </a>
+
+                    <div class="row df-individual-metadata">
+                      <div class="small-12 columns">
+                        <p class="painel-design-title"><%= single.title %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <% end %>
+
+          <% else %>
+
+            <p class="hide">Você não comentou em nenhuma imagem ainda :(</p>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+
+</div>

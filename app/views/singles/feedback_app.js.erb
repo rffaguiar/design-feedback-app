@@ -1,0 +1,10 @@
+(function() {  
+  $('.js-single-feedback-refresh').addClass('hide');
+  $('#feedback-post-email-message').removeClass('hide');
+  $('#feedback_user_text').val('');
+
+  setTimeout(function(){
+    $('#js-df-modal-feedback').foundation('reveal', 'close');
+    $('#feedback-post-email-message').addClass('hide');
+  }, 2000);
+}());

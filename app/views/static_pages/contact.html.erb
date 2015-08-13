@@ -1,0 +1,82 @@
+<section id="js-contact-page">
+  <div class="row">
+    <div class="small-12 medium-5 end medium-centered columns df-form-container df-form-contact-container">
+
+      <header class="row text-center">
+        <div class="small-12 columns">
+          <h2 class="lead">Entrar em contato</h2>
+        </div>
+      </header>
+
+      <main class="row">
+        <%= form_tag(contact_path, class: 'js-form-contact', method: 'POST', 'data-abide': true ) do %>
+
+          <div class="small-12 columns">
+            <% if flash[:email_sent] %>
+              <p>Email Enviado!</p>
+            <% end %>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-user"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= label_tag :name do %>
+                  <%= text_field_tag :name, nil, placeholder: 'Seu Nome', required: true %>
+                  <small class="error">Seu Nome é necessário.</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= label_tag :email do %>
+                  <%= email_field_tag :email, nil, placeholder: 'meu_email@email.com', required: true %>
+                  <small class="error">O Email é necessário.</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-tag"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= label_tag :subject do %>
+                  <%= text_field_tag :subject, nil, placeholder: 'Assunto do Email', required: true %>
+                  <small class="error">O Assunto é necessário.</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <%= text_area_tag :content, nil, placeholder: 'O que você gostaria de falar? :D', required: true %>
+            <small class="error">O Conteúdo do email é necessário</small>
+          </div>
+
+          <div class="small-12 columns">
+            <%= recaptcha_tags %>
+            <br>
+          </div>
+
+          <div class="actions small-12 columns">
+            <%= submit_tag 'Enviar Email' %>
+          </div>
+
+        <% end %>
+      </main>
+
+    </div>
+  </div>
+</section>

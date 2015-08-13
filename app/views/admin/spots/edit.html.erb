@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @spot.errors.any? %>
+      <% @spot.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+
+    <%= form_for [:admin, @spot] do |f| %>
+
+      <div>
+        <%= f.label :x_pos %>
+        <%= f.text_field :x_pos %>
+      </div>
+
+      <div>
+        <%= f.label :y_pos %>
+        <%= f.text_field :y_pos %>
+      </div>
+
+      <div>
+        <%= f.submit 'Atualizar' %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

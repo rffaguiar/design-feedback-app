@@ -1,0 +1,45 @@
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to 'Edit Comment', edit_admin_comment_path(@comment.id) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td><%= @comment.id %></td>
+        </tr>
+        <tr>
+          <td>Comment</td>
+          <td><%= @comment.comment %></td>
+        </tr>
+        <tr>
+          <td>Belongs to - Name</td>
+          <td><%= @comment.user.name %></td>
+        </tr>
+        <tr>
+          <td>Belongs to - ID</td>
+          <td><%= @comment.user.id %></td>
+        </tr>
+        <tr>
+          <td>Created at</td>
+          <td><%= @comment.created_at %></td>
+        </tr>
+        <tr>
+          <td>Updated at</td>
+          <td><%= @comment.updated_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

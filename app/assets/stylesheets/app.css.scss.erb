@@ -1,0 +1,1286 @@
+/*
+* - <vars>
+* - <initial setup>
+* - <crucial>
+* - <misc>
+* - <shared>
+* - <home>
+* - <login>
+* - <single design>
+* - <user-color>
+* - <modal>
+* - <admin>
+*
+*/
+
+/* wtf-1 */
+
+@import "foundation_and_overrides";
+// <vars> - BEGIN
+
+$font-source-sans-pro: 'Source Sans Pro', 'Helvetica Neue', helvetica, arial, sans-serif;
+
+$color-blue-home: #2f9fb7;
+$color-white: #fff;
+$color-333: #333;
+$color-design-black: #313131;
+$color-lightgray: #fafafa;
+/* $color-pinkred: #e71743; */
+$color-pinkred: #e04f5f;
+$color-ccc: #ccc;
+$color-eee: #eee;
+
+// <vars> - END
+// <initial setup> - BEGIN
+
+h1, h2, h3,h4,h5,h6 {
+  font-family: $font-source-sans-pro;
+}
+
+// <initial setup> - END
+
+// <states> - BEGIN
+.s-hidden {
+  opacity: 0;
+}
+// <states> - END
+
+// <crucial> - BEGIN
+.js-add-new-spot {
+  position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.js-design-container{
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    cursor: crosshair;
+    .js-design-spot {
+      /* display: block; */
+      opacity: 1;
+    }
+  }
+}
+
+.js-design-spot {
+  /* display: none; */
+  opacity: 0;
+  position: absolute;
+    z-index: 11;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border: 2px solid $color-white;
+  transition: opacity .3s ease;
+
+  /* extremely important style: it shows the comment box sibling to the spot */
+  &:hover + .js-spot-form {
+    display: block;
+    z-index: 10;
+
+    textarea {
+      display: block;
+    }
+
+    textarea:focus {
+      display: block;
+    }
+  }
+
+  /* extremely important style: (hackish) it shows the comment box and its spot just after the creation */
+  &.js-temp-display {
+    display: block;
+
+    & + .js-spot-form {
+      display: block;
+    }
+  }
+}
+
+.js-spot-form {
+  display: none;
+  position: absolute;
+    z-index: 9;
+  width: 250px;
+  min-height: 150px;
+
+  background-color: $color-lightgray;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid $color-ccc;
+
+  /* this is a hackish just to remove the <hover-effect-1> in some elements */
+  &.js-spot-created:hover {
+    display: none;
+  }
+
+  /* how to mantain the spot open when the input is selected? */
+
+  /* <hover-effect-1> */
+  &:hover {
+    display: block;
+    z-index: 12;
+  }
+
+  .design-comment-submit {
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: $font-source-sans-pro;
+  }
+
+  .design-comment {
+    position: relative;
+    font-family: $font-source-sans-pro;
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding-bottom: 8px;
+    padding-top: 7px;
+    border-bottom: 1px solid darken($color-lightgray, 10%);
+
+    &:last-child {
+      border-bottom: initial;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  .js-username-comment {
+    font-weight: bold;
+  }
+
+  .design-comment-delete {
+    position: absolute;
+      top: -7px;
+      right: 0;
+
+    i {
+      color: $color-pinkred;
+    }
+  }
+
+  .design-new-feedback-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: $font-source-sans-pro;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .js-design-comment-text {
+    transition: all .3s;
+    height: 40px;
+    border-radius: 5px;
+
+    &:hover,
+    &:focus {
+      height: 80px;
+    }
+  }
+}
+
+/* wtf-1 */
+/* textarea {
+  display: none;
+} */
+
+.js-existing-spot-form {
+  /* background-color: $color-lightgray;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid $color-ccc; */
+}
+
+.d-hide {
+  display: none;
+}
+
+.spot-comment-container {
+  display: inline-block;
+  cursor: default;
+  /* background-color: $color-white;
+  padding: 20px;
+  border-radius: 20px */;
+}
+
+/* Dropzone.js */
+#js-singular-dropzone {
+  position: relative;
+  background-color: #dedede;
+  height: 234px;
+  padding-top: 40%;
+  background-color: $color-white;
+  box-shadow: 0 0 2px 0px lighten($color-333, 20%);
+  color: $color-333;
+  cursor: pointer;
+
+  &::after {
+    content: 'Clique ou Arraste uma Imagem para cá';
+    position: absolute;
+      top: 5%;
+      left: 5%;
+    width: 90%;
+    height: 90%;
+    padding-top: 30%;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px dashed darken($color-lightgray, 10%);
+    background-color: $color-lightgray;
+    font-family: $font-source-sans-pro;
+    font-weight: 400;
+    border-radius: 10px;
+    transition: all .3s;
+  }
+
+  &:hover {
+    &::after {
+      background-color: darken($color-lightgray, 10%);
+      border-radius: 20px;
+    }
+  }
+}
+
+/* Painel - Individuais */
+
+.painel-secoes-nav {
+
+  margin-bottom: 20px;
+
+  ul {
+    margin-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    display: inline-block;
+
+    li {
+      float: left;
+
+      .painel-secao-link {
+        background-color: $color-white;
+        padding: 9px 14px;
+        border-right: 1px solid $color-eee;
+        box-shadow: 1px 1px 1px 0 $color-ccc;
+        text-transform: uppercase;
+        font-size: 12px;
+        transition: all .3s ease;
+
+        &:hover, &.selected {
+          color: $color-white;
+          background-color: $color-blue-home;
+        }
+
+      }
+
+      &:first-child {
+        .painel-secao-link {
+          border-radius: 3px 0 0 3px;
+        }
+      }
+
+      &:last-child {
+        .painel-secao-link {
+          border-radius: 0 3px 3px 0;
+          border-right: none;
+        }
+      }
+    }
+
+  }
+}
+
+#js-individuais-page {
+  background-color: $color-lightgray;
+  padding-top: 30px;
+  min-height: 550px;
+}
+
+#js-my-comments-page {
+  background-color: $color-lightgray;
+  padding-top: 30px;
+  min-height: 550px;
+}
+
+.painel-design-link {
+  position: relative;
+  display: inline-block;
+  /* max-width: 250px; */
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+  }
+
+  &::before {
+    content: '';
+    opacity: 0;
+    position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    background-color: rgba($color-333, .6);
+    transition: opacity .3s;
+  }
+
+  &::after {
+    content: 'Ir para a Imagem';
+    opacity: 0;
+    position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    padding-top: 55px;
+    text-align: center;
+    font-family: $font-source-sans-pro;
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: $color-white;
+    transform: translateY(-20px);
+    transition: opacity .3s, transform .5s;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.js-form-update-icon {
+  opacity: 0;
+}
+
+.design-container-individuais {
+  position: relative;
+
+  @media #{$small-only} {
+
+    .painel-design-container {
+      float: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.painel-design-container {
+  margin-bottom: 20px;
+
+  &.dz-error {
+
+    .painel-design-inner-container {
+      box-shadow: 0 0 2px 1px $color-pinkred;
+    }
+
+    .painel-design-link {
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      img {
+        filter: grayscale(100%);
+      }
+
+    }
+  }
+
+  .dz-error-message {
+    font-family: $font-source-sans-pro;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+
+  > .row {
+    margin: 0; // hackish to override foundation at this level
+  }
+
+  .dz-progress {
+    position: absolute;
+      top: 0;
+      left: 0;
+    width: 100%;
+    background-color: #eee;
+    height: 4px;
+  }
+
+  .dz-upload {
+    position: absolute;
+      top: 0;
+      left: 0;
+    width: 1%;
+    height: 4px;
+    transition: width .3s;
+    background-color: $color-blue-home;
+  }
+}
+
+.painel-design-inner-container {
+  padding: 0;
+  background-color: $color-white;
+  box-shadow: 0 0 2px 0px lighten($color-333, 20%);
+}
+
+.df-individual-metadata {
+  height: 50px;
+  overflow: hidden;
+
+  & > .small-12 {
+    padding: 0 25px; // hackish to override foundation at this level
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.df-individual-inputs-container {
+  height: 100px; // fixed height for the inputs box
+  overflow: hidden;
+
+  & > .small-12 {
+    padding: 0 25px; // hackish to override foundation at this level
+  }
+
+  input[type=text] {
+    border: 0;
+    border-bottom: 1px solid darken($color-lightgray, 20%);
+    background-color: $color-lightgray;
+    box-shadow: none;
+    margin-bottom: 12px;
+    transition: all .3s;
+
+    &:focus {
+      background-color: darken($color-lightgray, 10%);
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    font-family: $font-source-sans-pro;
+    font-weight: 400;
+    font-size: 14px;
+    color: darken($color-lightgray, 30%);
+  }
+
+  .df-input-stacked {
+    position: relative;
+
+    input[type=text] {
+      padding-left: 30px;
+    }
+
+    i {
+      position: absolute;
+        top: 13px;
+        left: 10px;
+      color: $color-333;
+      font-size: 13px;
+    }
+  }
+}
+
+// <crucial> - END
+// <misc> - BEGIN
+.max-width {
+  position: relative;
+  width: 100%;
+}
+
+// <misc> - END
+// <shared> - BEGIN
+
+.df-main-logo {
+  display: inline-block;
+  font-family: $font-source-sans-pro;
+  color: $color-white;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+
+  &:hover {
+    span {
+      font-size: 25px;
+      font-weight: 400;
+    }
+    strong {
+      font-size: 25px;
+      font-weight: 200;
+    }
+  }
+
+  span {
+    font-size: 25px;
+    font-weight: 200;
+    transition: all .3s;
+  }
+
+  strong {
+    font-size: 25px;
+    font-weight: 400;
+    transition: all .3s;
+    &::after {
+      content: 'beta!';
+      font-weight: 200;
+      font-size: 14px;
+      position: relative;
+        top: 14px;
+        left: -26px;
+    }
+  }
+}
+
+.df-footer-logo {
+  font-family: $font-source-sans-pro;
+  color: $color-333;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+  span {
+    font-size: 20px;
+    font-weight: 200;
+  }
+
+  strong {
+    font-size: 20px;
+    font-weight: 400;
+    &::after {
+      content: 'beta!';
+      font-weight: 200;
+      font-size: 14px;
+      position: relative;
+        top: 14px;
+        left: -26px;
+    }
+  }
+}
+
+.df-design-footer-logo {
+  font-family: $font-source-sans-pro;
+  color: $color-lightgray;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+
+  span {
+    font-size: 20px;
+    font-weight: 200;
+  }
+
+  strong {
+    font-size: 20px;
+    font-weight: 400;
+    &::after {
+      content: 'beta!';
+      font-weight: 200;
+      font-size: 14px;
+      position: relative;
+        top: 14px;
+        left: -26px;
+    }
+  }
+}
+
+.df-design-main-header {
+  background-color: $color-design-black;
+
+  .df-nav-separator {
+    border-bottom: 1px solid #888;
+    border-top: none;
+  }
+}
+
+.df-home-main-header {
+  background-color: $color-blue-home;
+  padding-bottom: 15px;
+}
+
+.df-home-top-navigation {
+  padding-top: 28px;
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    float: left;
+    margin-right: 15px;
+  }
+
+  a {
+    color: $color-white;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .normal{
+    color: $color-white;
+    font-weight: 200;
+  }
+
+  .featured{
+    padding: 3px 8px 2px 8px;
+    background-color: $color-white;
+    color: darken($color-blue-home, 5%);
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    border: 1px solid $color-white;
+    box-shadow: 1px 1px 0px 0px lighten($color-333, 30%);
+    transition: all .3s;
+
+    &:hover {
+      background-color: $color-blue-home;
+      color: $color-white;
+      border: 1px solid $color-white;
+    }
+  }
+
+  .logout{
+    color: darken($color-white, 5%);
+    /* text-transform: uppercase; */
+    font-size: 13px;
+    transition: color .3s;
+
+    &:hover {
+      color: darken($color-white, 20%);
+    }
+  }
+}
+
+.df-design-top-navigation {
+  padding-top: 28px;
+  padding-right: 0;
+
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    float: left;
+    margin-right: 15px;
+  }
+
+  a {
+    color: $color-white;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .share {
+    background-color: $color-white;
+    padding: 5px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    top: -5px;
+    transition: all .3s ease;
+    border: 1px solid $color-white;
+
+    &:hover {
+      background-color: $color-design-black;
+      border: 1px solid $color-white;
+      color: $color-white;
+    }
+  }
+
+  .normal{
+    color: darken($color-lightgray, 10%);
+    font-weight: 200;
+  }
+
+  .featured{
+    padding: 3px 8px 2px 8px;
+    background-color: $color-white;
+    color: $color-design-black;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    border: 1px solid $color-white;
+    box-shadow: 1px 1px 0px 0px lighten($color-333, 30%);
+    transition: all .3s;
+
+    &:hover {
+      /* background-color: $color-blue-home; */
+      background-color: $color-design-black;
+      color: $color-white;
+      border: 1px solid $color-white;
+    }
+  }
+
+  .logout{
+    color: darken($color-white, 5%);
+    /* text-transform: uppercase; */
+    font-size: 13px;
+    transition: color .3s;
+
+    &:hover {
+      color: darken($color-white, 20%);
+    }
+  }
+}
+
+.df-main-footer {
+  padding-top: 50px;
+  padding-bottom: 30px;
+
+  .df-footer-copyright {
+    font-family: $font-source-sans-pro;
+    font-size: 14px;
+  }
+}
+
+.df-design-footer {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  background-color: $color-design-black;
+
+  hr {
+    border-top: none;
+    border-bottom: 1px solid #888;
+  }
+
+  .df-footer-copyright {
+    font-family: $font-source-sans-pro;
+    font-size: 14px;
+    font-weight: 200;
+    color: $color-lightgray;
+  }
+}
+
+.df-footer-navigation {
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    float: left;
+    margin-right: 15px;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+}
+
+.df-notifications {
+  background-color: $color-blue-home;
+}
+
+// generated by kaminari gem - BEGIN
+.pagination {
+  .page.current {
+    padding: 10px;
+    background-color: darken($color-white, 10%);
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+
+  .page,
+  .first,
+  .prev,
+  .next,
+  .last {
+    a {
+      padding: 10px;
+      background-color: $color-white;
+      border-radius: 3px;
+      transition: .3s ease;
+
+      &:hover {
+        color: $color-333;
+      }
+    }
+  }
+}
+// generated by kaminari gem - END
+
+// <shared> - END
+// <home> - BEGIN
+.df-home-lead-title {
+  color: $color-white;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+  font-size: 33px;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+
+.df-home-lead-subtitle {
+  color: $color-white;
+  /* text-shadow: 1px 1px 0 rgba(0, 0, 0, .2); */
+  font-size: 30px;
+  font-weight: 200;
+  margin-top: 20px;
+}
+
+.temp-home-placeholder {
+  /* height: 490px; */
+  width: 100%;
+  background-color: $color-eee;
+  box-shadow: 0 0 1px 0 #999;
+  /* overflow: hidden; */
+  #js-design-img {
+    width: 100%;
+    border: 5px solid $color-white;
+  }
+
+  .js-spots-container {
+    height: 0; //little hackish
+  }
+}
+
+.df-home-demonstration {
+  background-color: $color-blue-home;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* .df-howitworks-section {
+  padding-bottom: 40px;
+} */
+
+.df-home-howitworks-lead {
+  font-size: 33px;
+  font-weight: 200;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.df-subsection-step {
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .lead-a {
+    display: inline-block;
+    color: $color-blue-home;
+    background-color: $color-white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 27px;
+    font-weight: 200;
+  }
+
+  .lead-b{
+    color: $color-blue-home;
+    font-size: 27px;
+    font-weight: 200;
+  }
+
+  .description {
+    padding: 25px 15px;
+    font-family: $font-source-sans-pro;
+
+    p {
+      margin-bottom: 0;
+      font-size: 20px;
+      font-weight: 200;
+    }
+
+    .pinkred {
+      color: $color-pinkred;
+    }
+
+    .strong {
+      font-weight: 400;
+    }
+  }
+
+  .description-a{
+    background-color: $color-white;
+  }
+
+  .description-b{
+    background-color: #f5f5f5;
+  }
+}
+
+.df-step-upload {
+  background-image: url(<%= asset_path 'struckaxiom.png' %>);
+  height: 360px;
+  padding-top: 86px;
+}
+
+.df-step-share {
+  height: 430px;
+  padding-top: 60px;
+}
+
+.df-step-feedback {
+  background-image: url(<%= asset_path 'struckaxiom.png' %>);
+  height: 380px;
+  padding-top: 86px;
+}
+
+.df-free-register-section{
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-color: $color-blue-home;
+}
+
+.df-home-register-bt {
+  padding: 13px 25px 13px 25px;
+  background-color: $color-pinkred;
+  color: $color-white;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-family: $font-source-sans-pro;
+  font-weight: 400;
+  border: 1px solid $color-pinkred;
+  box-shadow: 1px 1px 2px 0px $color-white;
+  transition: all .3s;
+
+  &:hover {
+    background-color: $color-white;
+    color: $color-pinkred;
+    border: 1px solid $color-pinkred;
+  }
+
+}
+
+.home-bot-user {
+  color: $color-pinkred;
+}
+
+// <home> - END
+// <login> - BEGIN
+
+#js-login-page,
+#js-signup-page,
+#js-edit-user-page,
+#js-password-page,
+#js-email-confirmation-page,
+#js-contact-page {
+  min-height: 600px;
+  background-image: url(<%= asset_path 'struckaxiom.png' %>);
+  padding-bottom: 40px;
+  @media #{$small-only} {
+    min-height: initial;
+  }
+}
+
+#df-design-page {
+  min-height: 800px;
+}
+
+.df-form-left-container {
+  border-right: 1px solid $color-eee;
+}
+
+.df-form-container{
+  background-color: $color-white;
+  border-radius: 5px;
+  margin-top: 50px;
+  padding: 0 30px 30px 30px;
+  border: 3px solid $color-lightgray;
+  box-shadow: 0 0 1px 0px $color-333;
+
+  .lead {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .df-form-icon {
+    font-size: 17px;
+  }
+
+  input[type=submit] {
+    padding: 10px 16px;
+    background-color: $color-blue-home;
+    font-family: $font-source-sans-pro;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid $color-blue-home;
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: $color-white;
+    transition: all .3s;
+
+    &:hover{
+      background-color: $color-lightgray;
+      border: 1px solid $color-blue-home;
+      color: $color-blue-home;
+    }
+  }
+
+  @media #{$small-only} {
+    margin-top: 0;
+  }
+
+  &.df-form-email-confirmation-container {
+    .lead {
+      font-size: 25px;
+    }
+  }
+}
+
+.df-form-signup-container-notice {
+  margin-top: 30px;
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 20px;
+  border: 2px solid $color-blue-home;
+  font-family: $font-source-sans-pro;
+  font-weight: 400;
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .author {
+    color: $color-pinkred;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .redirect {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+}
+
+.df-form-contact-container {
+  #content {
+    height: 100px;
+  }
+}
+
+
+.df-form-login-bt{}
+.df-form-signup-bt{}
+.df-form-password-bt{}
+.df-form-confirm-bt{}
+.df-form-unlock-bt{}
+.df-form-omniauth-bt{}
+.df-form-footer-link{
+  text-transform: uppercase;
+  margin-right: 10px;
+  font-family: $font-source-sans-pro;
+  font-size: 11px;
+  color: $color-333;
+}
+.df-form-manter-conectado {
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+// <login> - END
+// <single design> - BEGIN
+
+.design-single-container {
+  /* padding-top: 20px; */
+  background-color: $color-design-black;
+
+  .df-single-date-container {
+    height: 105px;
+    position: relative;
+  }
+
+  .df-single-date {
+    color: #e1e1e1;
+    position: absolute;
+      top: 0px;
+      right: 12px;
+    font-family: $font-source-sans-pro;
+    font-weight: 200;
+  }
+
+  .df-single-delete-design {
+    position: absolute;
+      top: 35px;
+      right: 12px;
+    background-color: $color-pinkred;
+    border: 1px solid $color-white;
+    color: $color-white;
+    font-family: $font-source-sans-pro;
+    font-weight: 400;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 2px 10px;
+    transition: all .3s;
+
+    &:hover {
+      color: $color-pinkred;
+      background-color: $color-white;
+      border: 1px solid $color-white;
+    }
+
+  }
+}
+
+.df-design-single-meta-container {
+  color: $color-lightgray;
+  font-family: $font-source-sans-pro;
+  .df-single-meta-title {
+    font-weight: 200;
+    font-size: 20px;
+  }
+
+  .df-single-meta-subtitle {
+    font-weight: 200;
+    font-size: 16px;
+  }
+}
+
+.df-design-single-click-around {
+  color: #c0c0c0;
+  font-weight: 200;
+  font-family: $font-source-sans-pro;
+  font-size: 19px;
+}
+
+.df-single-inputs-container {
+
+  input[type=text] {
+    border: 0;
+    font-family: $font-source-sans-pro;
+    font-weight: 200;
+    /* border-bottom: 1px solid darken($color-lightgray, 20%); */
+    font-size: 20px;
+    background-color: #1d1d1d;
+    box-shadow: none;
+    margin-bottom: 12px;
+    color: darken($color-lightgray, 10%);
+    transition: all .3s;
+
+    &:focus {
+      background-color: #1d1d1d;
+    }
+
+    &.new_design_subtitle_single {
+      font-size: 15px;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    font-family: $font-source-sans-pro;
+    font-weight: 200;
+    font-size: 19px;
+    text-transform: uppercase;
+    color: darken($color-lightgray, 30%);
+  }
+
+  .df-input-stacked {
+    position: relative;
+
+    input[type=text] {
+      padding-left: 30px;
+    }
+
+    i {
+      position: absolute;
+        top: 13px;
+        left: 10px;
+      color: darken($color-lightgray, 20%);
+      font-size: 13px;
+    }
+  }
+}
+
+.df-feedback-form-container {
+  position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+  width: 200px;
+  background-color: $color-white;
+  padding: 10px;
+  border-radius: 3px 0 0 0;
+
+  p {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  button {
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 3px;
+  }
+}
+
+.df-modal-single-feedback {
+  textarea {
+    height: 120px;
+  }
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  .js-single-feedback-refresh {
+    margin-left: 15px;
+    font-size: 20px;
+  }
+}
+
+
+// <single design> - END
+// <modal> - BEGIN
+.df-modal {
+  #df-modal-link {
+    display: inline-block;
+    background-color: darken($color-white, 10%);
+    border-radius: 5;
+    padding: 10px;
+  }
+}
+// <modal> - END
+// <admin> - BEGIN
+.df-admin-nav {
+  ul {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+
+    li {
+      float: left;
+      margin-right: 15px;
+    }
+  }
+}
+
+.df-admin-resource-actions {
+  span {
+    margin-right: 5px;
+  }
+
+  i {
+    font-size: 18px;
+  }
+
+  .df-admin-resource-show {}
+  .df-admin-resource-edit {}
+  .df-admin-resource-delete {
+    i {
+      color: red;
+    }
+  }
+}
+// <admin> - END

@@ -1,0 +1,60 @@
+<section id="js-login-page">
+  <div class="row">
+    <div class="small-12 medium-5 end medium-centered columns df-form-container df-form-login-container">
+
+      <header class="row text-center">
+        <div class="small-12 columns">
+          <h2 class="lead">Entrar</h2>
+        </div>
+      </header>
+
+      <main class="row">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { 'data-abide': true }) do |f| %>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-envelope-o"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :email do %>
+                  <%= f.email_field :email, autofocus: true, placeholder: 'exemplo@email.com', required: true %>
+                  <small class="error">O Email é necessário.</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="df-form-icon fa fa-key" style="font-size: 17px;"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <%= f.label :password do %>
+                  <%= f.password_field :password, autocomplete: "off", placeholder: '********', required: true %>
+                  <small class="error">A Senha é necessária</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div class="small-12 columns">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me, 'Manter-me Conectado', class: 'df-form-manter-conectado' %>
+            </div>
+          <% end -%>
+
+          <div class="actions small-12 columns">
+            <%= f.submit "Entrar" %>
+          </div>
+
+        <% end %>
+      </main>
+
+      <%= render "users/shared/links" %>
+
+    </div>
+  </div>
+</section>

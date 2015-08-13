@@ -1,0 +1,5 @@
+(function() {
+  console.log('spot deleted successfully');
+  $spot = $('.spot-comment-container', '.js-spots-container');
+  $spot.find('[data-spot-id=<%= @spot.id %>]').parent('.spot-comment-container').remove();
+}());

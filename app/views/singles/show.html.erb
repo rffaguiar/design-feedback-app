@@ -1,0 +1,148 @@
+<div id="df-design-page" class="design-single-container">
+
+  <section class="row">
+    <div class="small-12 medium-6 columns df-design-single-meta-container">
+      <div class="row">
+
+        <% if user_signed_in? && current_user.id == @design.user.id %>
+          <div class="small-12 columns df-single-inputs-container">
+            <%= form_tag(update_design_title_path, method: 'PATCH', remote: true, authenticity_token: true, class: 'js-form-update-title' ) do %>
+              <%= text_field_tag :design_id, @design.id, {type: 'hidden'} %>
+              <div class="df-input-stacked">
+                <%= text_field_tag :design_title, @design.title, {id: 'new_design_title', class: 'new_design_title_single', placeholder: 'Insira um título' } %>
+                <i class="fa js-form-update-icon"></i>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="small-12 columns df-single-inputs-container">
+            <%= form_tag(update_design_subtitle_path, method: 'PATCH', remote: true, authenticity_token: true, class: 'js-form-update-subtitle' ) do %>
+              <%= text_field_tag :design_id, @design.id, {type: 'hidden'} %>
+              <div class="df-input-stacked">
+                <%= text_field_tag :design_subtitle, @design.subtitle, {id: 'new_design_subtitle', class: 'new_design_subtitle_single', placeholder: 'Breve Descrição' } %>
+                <i class="fa js-form-update-icon"></i>
+              </div>
+            <% end %>
+          </div>
+
+        <% else %>
+
+          <div class="small-12 columns">
+            <p class="df-single-meta-title"><span class="hide">Titulo: </span><%= @design.title %></p>
+            <p class="df-single-meta-subtitle"><span class="hide">Subtítulo: </span><%= @design.subtitle %></p>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-6 columns df-single-date-container">
+      <% if user_signed_in? && current_user.id == @design.user.id %>
+        <%= link_to "Deletar Imagem", delete_design_path(@design.id), method: :delete, class: 'df-single-delete-design', data: { confirm: 'Voce tem certeza que deseja apagar esse design?' } %>
+      <% end %>
+      <p class="df-single-date">criado: <%= l @design.created_at, :format => '%d/%m/%Y' %></p>
+    </div>
+
+    <div class="small-12 columns">
+      <p class="df-design-single-click-around">Clique em qualquer área da imagem e fique livre para dar um feedback!</p>
+    </div>
+
+  </section>
+
+  <main class="row js-main-app">
+    <div class="small-12 columns">
+      <div class="js-design-container">
+
+        <%= image_tag design_fs_path + @design.image_path, {id: 'js-design-img'} %>
+        <div class="js-spots-container">
+          <% if @spots.any? %>
+            <% @spots.each do |spot| %>
+              <div class="spot-comment-container">
+                <span data-spot-id="<%= spot.id %>" class="js-design-spot" style="top: <%= spot.y_pos.to_i - 10 %>px; left: <%= spot.x_pos.to_i - 10 %>px"></span>
+                <div data-spot-ref="<%= spot.id %>" class="js-existing-spot-form js-spot-form" style="top: <%= spot.y_pos %>px; left: <%= spot.x_pos %>px">
+                  <%= form_tag(create_design_comment_path, {remote: true}) do %>
+
+                    <% if spot.comments.any? %>
+                      <div class="comments-container">
+                        <% spot.comments.each_with_index do |comment, index| %>
+                          <p class="design-comment" data-comment-id="<%= comment.id %>">
+                            <%= comment.comment %> <span data-user-ref="<%= comment.user.id %>" class="js-username-comment">- <%= comment.user.name %></span>
+                            <% if index == 0 %>
+                              <% if comment.can_user_delete?(current_user) %>
+                                <%= link_to delete_design_spot_path(spot.id), remote: true, method: :delete, class: 'design-comment-delete', data: {confirm: 'Atenção: todos os comentários pertencentes a este feedback serão apagados. Tem certeza?'}  do %>
+                                  <i class="fa fa-trash"></i>
+                                <% end %>
+                              <% end %>
+                            <% else %>
+                              <% if comment.can_user_delete?(current_user) %>
+                                <%= link_to delete_design_comment_path(comment.id), remote: true, method: :delete, class: 'design-comment-delete', data: {confirm: 'Você tem certeza que deseja apagar esse comentário?'} do %>
+                                <i class="fa fa-trash"></i>
+                                <% end %>
+                              <% end %>
+                            <% end %>
+                          </p>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <p>este spot deve ser apagado, não pode existir spots sem comentários</p>
+                    <% end %>
+
+                    <%= text_field_tag 'design-id', @design.id, { type: 'hidden'} %>
+                    <%= text_field_tag 'spot-id', spot.id, { type: 'hidden'} %>
+                    <%= text_area_tag  'design-comment-text', nil,  {class: 'js-maintain-focus js-design-comment-text'} %>
+                    <%= button_tag 'Enviar Feedback', class: 'design-comment-submit', data: { disable_with: 'Enviando...'} %>
+
+                  <% end %>
+                </div><!-- end .jd-spot-form -->
+              </div><!-- end .spot-comment-container -->
+
+            <% end %>
+          <% end  %>
+        </div>
+
+        <div class="js-new-spot-comment-container">
+          <span class="js-design-spot js-new-design-spot hide"></span>
+          <div class="js-add-new-spot js-spot-form">
+            <%= form_tag(create_design_comment_path, {remote: true} ) do %>
+              <p class="design-new-feedback-title">Deixe seu Feedback</p>
+              <%= text_field_tag 'design-id', @design.id, {type: 'hidden'} %>
+              <%= text_field_tag 'design-x-pos', false, { type: 'hidden'} %>
+              <%= text_field_tag 'design-y-pos', false, { type: 'hidden'} %>
+              <%= text_area_tag  'design-comment-text', nil, { class: 'js-maintain-focus js-design-comment-text'} %>
+              <%= button_tag 'Enviar Feedback', class: 'design-comment-submit', data: { disable_with: 'Enviando...'} %>
+            <% end %>
+          </div>
+        </div>
+
+      </div><!-- end .js-design-container -->
+    </div>
+
+  </main>
+
+  <section>
+
+    <div id="js-df-modal-link" class="reveal-modal medium df-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <p class="lead">Link de Compartilhamento</p>
+      <p>Envie este link para quem você quiser compartilhar esta imagem.</p>
+      <p id="df-modal-link">http://designfeedback.com.br/<%= @design.link %></p><br>
+      <button id="df-copy-to-clipboard-link" type="button" title="Clique para copiar o link deste design" data-clipboard-text="http://designfeedback.com.br/<%= @design.link %>">Clique aqui para copiar o link</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <div class="df-feedback-form-container hide">
+      <p>Achou algum erro?</p>
+      <p>Gostaria de algo a mais?</p>
+      <button data-reveal-id="js-df-modal-feedback" name="button">Clique aqui</button>
+    </div>
+
+    <div id="js-df-modal-feedback" class="df-modal-single-feedback reveal-modal medium df-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <p class="lead">Olá</p>
+      <p>Achou algum erro?</p>
+      <p>Gostaria de algo que não existe na nossa ferramenta?</p>
+      <p>Nos conte!</p>
+      <%= render 'shared/feedback_form' %>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+  </section>
+</div>

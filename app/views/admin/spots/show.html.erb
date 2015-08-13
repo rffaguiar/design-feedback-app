@@ -1,0 +1,53 @@
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to 'Edit Spot', edit_admin_spot_path(@spot.id) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td><%= @spot.id %></td>
+        </tr>
+        <tr>
+          <td>Y Pos</td>
+          <td><%= @spot.y_pos %></td>
+        </tr>
+        <tr>
+          <td>X Pos</td>
+          <td><%= @spot.x_pos %></td>
+        </tr>
+        <tr>
+          <td>Design ID</td>
+          <td><%= @spot.design.id %></td>
+        </tr>
+        <tr>
+          <td>User ID</td>
+          <td><%= @spot.user.id %></td>
+        </tr>
+        <tr>
+          <td>User Name</td>
+          <td><%= @spot.user.name %></td>
+        </tr>
+        <tr>
+          <td>Created at</td>
+          <td><%= @spot.created_at %></td>
+        </tr>
+        <tr>
+          <td>Updated at</td>
+          <td><%= @spot.updated_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

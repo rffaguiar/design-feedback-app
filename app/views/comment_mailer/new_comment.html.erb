@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Novo comentário no seu design vindo de <%= @comment.user.name %></h3>
+    <p>Comentário:</p>
+    <p><%= @comment.comment %></p>
+    <p>Acesse seu design <%= link_to 'Aqui', design_url(@comment.design.link) %></p>
+  </body>
+</html>

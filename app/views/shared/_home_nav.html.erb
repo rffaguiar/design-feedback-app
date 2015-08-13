@@ -1,0 +1,25 @@
+<header class="max-width df-home-main-header">
+  <div class="row">
+    <!-- Top Nav BEGIN -->
+    <div class="small-12 medium-4 columns">
+      <%= link_to root_url do %>
+        <h1 class="df-main-logo"><span>Design</span><strong>Feedback</strong></h1>
+      <% end  %>
+    </div>
+    <nav class="small-12 medium-8 columns df-home-top-navigation">
+      <ul class="right">
+        <% if user_signed_in? %>
+          <li class="normal">Olá, <%= current_user.name %></li>
+          <li><%= link_to 'Painel', individuais_path, {class: 'featured'} %></li>
+          <li><%= link_to 'Dados Pessoais', edit_user_registration_path, {class: 'normal'} %></li>
+          <li><%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'normal' %></li>
+        <% else %>
+          <li><%= link_to 'Login', new_user_session_path, {class: 'normal'} %></li>
+          <li><%= link_to 'Cadastre-se Gratuitamente', new_user_registration_path, {class: 'featured'} %></li>
+        <% end %>
+        <li><%= link_to 'Contato', contact_path, {class: 'normal'} %></li>
+      </ul>
+    </nav>
+    <!-- Top Nav END -->
+  </div>
+</header>

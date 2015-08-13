@@ -1,0 +1,14 @@
+<% if notice.present? || alert.present? %>
+
+  <section id="df-notifications" class="df-notifications max-width hide">
+    <% if notice %>
+      <p id="js-df-devise-notice" class="notice"><%= notice %></p>
+    <% end %>
+
+    <% if alert %>
+      <p id="js-df-devise-alert" class="alert"><%= alert %></p>
+    <% end %>
+
+  </section>
+
+<% end %>

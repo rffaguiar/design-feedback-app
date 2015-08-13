@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="small-12 columns">
+
+    <% if @images.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Link</th>
+            <th>Img Path</th>
+            <th>Img Thumb Path</th>
+            <th>belongs to - Name</th>
+            <th>belongs to - ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @images.each do |image| %>
+            <tr>
+              <td class="df-admin-resource-actions">
+                <span class="df-admin-resource-show"><%= link_to admin_design_path(image.id) do '<i class="fa fa-eye"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-edit"><%= link_to edit_admin_design_path(image.id) do '<i class="fa fa-pencil"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-delete"><%= link_to admin_design_path(image.id), method: :delete, data: {confirm: 'Você tem certeza que deseja apagar essa imagem? Tudo associado a esta imagem será apagado.'} do '<i class="fa fa-minus-circle"></i>'.html_safe end %></span>
+              </td>
+              <td><%= image.id %></td>
+              <td><%= image.title %></td>
+              <td><%= image.subtitle %></td>
+              <td><%= image.link %></td>
+              <td><%= image.image_path %></td>
+              <td><%= image.image_thumb_path %></td>
+              <td><%= image.user.name %></td>
+              <td><%= image.user.id %></td>
+              <td><%= image.created_at %></td>
+              <td><%= image.updated_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @images %>
+
+    <% else %>
+      <p>Sem Imagens ainda</p>
+    <% end %>
+
+  </div>
+</div>

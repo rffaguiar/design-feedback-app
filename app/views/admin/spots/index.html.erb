@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="small-12 columns">
+
+    <% if @spots.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>ID</th>
+            <th>Y Pos</th>
+            <th>X Pos</th>
+            <th>Design ID</th>
+            <th>User ID</th>
+            <th>User - Name</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @spots.each do |spot| %>
+            <tr>
+              <td class="df-admin-resource-actions">
+                <span class="df-admin-resource-show"><%= link_to admin_spot_path(spot.id) do '<i class="fa fa-eye"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-edit"><%= link_to edit_admin_spot_path(spot.id) do '<i class="fa fa-pencil"></i>'.html_safe end %></span>
+                <span class="df-admin-resource-delete"><%= link_to admin_spot_path(spot.id), method: :delete, data: {confirm: 'Você tem certeza que deseja apagar esse spot? Tudo associado a este spot será apagado.'} do '<i class="fa fa-minus-circle"></i>'.html_safe end %></span>
+              </td>
+              <td><%= spot.id %></td>
+              <td><%= spot.y_pos %></td>
+              <td><%= spot.x_pos %></td>
+              <td><%= spot.design.id %></td>
+              <td><%= spot.user.id %></td>
+              <td><%= spot.user.name %></td>
+              <td><%= spot.created_at %></td>
+              <td><%= spot.updated_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @spots %>
+
+    <% else %>
+      <p>Sem Spots ainda</p>
+    <% end %>
+
+  </div>
+</div>
