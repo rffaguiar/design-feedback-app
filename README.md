@@ -14,7 +14,7 @@ Only registered users can see/comment on images
 When an user comments, the image owner receives an email.
 
 ## Demo
-check the [demo app](https://designfeedback.com.br)
+Check the [demo app](http://designfeedback.com.br)
 
 ## System Requirements
 
